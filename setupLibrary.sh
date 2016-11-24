@@ -9,9 +9,9 @@ function addUserAccount() {
         sudo adduser --disabled-password --gecos '' ${username}
     else
         sudo adduser --disabled-password ${username}
-        echo "${username}:${password}" | sudo chpasswd
     fi
 
+    echo "${username}:${password}" | sudo chpasswd
     sudo usermod -aG sudo ${username}
 }
 
