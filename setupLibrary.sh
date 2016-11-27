@@ -30,3 +30,13 @@ function execAsUser() {
 
     sudo -u "${username}" -H sh -c "${exec_command}"
 }
+
+function changeSSHConfig() {
+    sudo sed -re 's/^(\#?)(PasswordAuthentication)([[:space:]]+)yes/\2\3no/' -i.$(echo 'old') /etc/ssh/sshd_config
+    sudo sed -re 's/^(\#?)(PermitRootLogin)([[:space:]]+)(.*)/PermitRootLogin no/' -i /etc/ssh/sshd_config
+}
+
+function setupUfw() {
+    sudo ufw allow OpenSSH
+    yes y | sudo ufw enable
+}

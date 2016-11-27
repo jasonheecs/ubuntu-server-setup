@@ -40,10 +40,31 @@ function testAddingOfSSHKey() {
     assertEquals "${ssh_file}" "${dummy_key}"
 }
 
+function testChangeSSHConfig() {
+    changeSSHConfig
+
+    local ssh_config="$(sudo cat /etc/ssh/sshd_config)"
+    assertContains "PasswordAuthentication no" "${ssh_config}"
+    assertContains "PermitRootLogin no" "${ssh_config}"
+}
+
+function testUfw() {
+    setupUfw
+
+    local ufw_status=$(sudo ufw status)
+    assertContains "Status: active" "${ufw_status}"
+    assertContains "OpenSSH" "${ufw_status}"
+}
+
 function testTeardown () {
     echo "Test Teardown"
+
     deleteTestUser
     revertSudoers
+    revertSSHConfig
+
+    sudo ufw delete allow OpenSSH
+    sudo ufw disable
 }
 
 ### Helper Functions ###
@@ -55,12 +76,17 @@ function deleteTestUser() {
 
 function revertSudoers() {
     sudo cp /etc/sudoers.bak /etc/sudoers
-    sudo rm -rf sudoers.bak
+    sudo rm -rf /etc/sudoers.bak
 }
 
 function disableSudoPassword() {
     sudo cp /etc/sudoers /etc/sudoers.bak
     sudo bash -c "echo '${test_user_account} ALL=(ALL) NOPASSWD: ALL' | (EDITOR='tee -a' visudo)"
+}
+
+function revertSSHConfig() {
+    sudo cp /etc/ssh/sshd_config.old /etc/ssh/sshd_config
+    sudo rm -rf /etc/ssh/sshd_config.old
 }
 
 runUnitTests
