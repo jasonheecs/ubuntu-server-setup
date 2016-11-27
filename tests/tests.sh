@@ -56,15 +56,21 @@ function testUfw() {
     assertContains "OpenSSH" "${ufw_status}"
 }
 
+function testSwap() {
+    createSwap
+
+    assertContains "/swapfile" "$(ls -lh /swapfile)"
+    assertContains "/swapfile" "$(sudo swapon --show)"
+}
+
 function testTeardown () {
     echo "Test Teardown"
 
     deleteTestUser
     revertSudoers
     revertSSHConfig
-
-    sudo ufw delete allow OpenSSH
-    sudo ufw disable
+    revertUfw
+    deleteSwap
 }
 
 ### Helper Functions ###
@@ -87,6 +93,16 @@ function disableSudoPassword() {
 function revertSSHConfig() {
     sudo cp /etc/ssh/sshd_config.old /etc/ssh/sshd_config
     sudo rm -rf /etc/ssh/sshd_config.old
+}
+
+function revertUfw() {
+    sudo ufw delete allow OpenSSH
+    sudo ufw disable
+}
+
+function deleteSwap() {
+    sudo swapoff /swapfile
+    sudo rm /swapfile
 }
 
 runUnitTests

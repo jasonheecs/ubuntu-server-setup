@@ -40,3 +40,26 @@ function setupUfw() {
     sudo ufw allow OpenSSH
     yes y | sudo ufw enable
 }
+
+function createSwap() {
+   local swapmem=$(($(getPhysicalMemory) * 2))
+
+   # Anything over 4GB in swap is probably unnecessary as a RAM fallback
+   if [[ ${swapmem} > 4 ]]; then
+        phymem=4
+   fi
+
+   sudo fallocate -l ${swapmem}G /swapfile
+   sudo chmod 600 /swapfile
+   sudo mkswap /swapfile
+   sudo swapon /swapfile
+}
+
+function getPhysicalMemory() {
+    local phymem=$(free -g|awk '/^Mem:/{print $2}')
+    if [[ ${phymem} == '0' ]]; then
+        echo 1
+    else
+        echo ${phymem}
+    fi
+}
