@@ -40,5 +40,7 @@ addSSHKey "${username}" "${sshKey}"
 changeSSHConfig
 setupUfw
 setupSwap
+setTimezone "Asia/Singapore"
+configureNTP
 
 sudo service ssh restart

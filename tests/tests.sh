@@ -69,10 +69,25 @@ function testSwapSettings() {
     
     tweakSwapSettings 10 50
 
-    assertEquals "$(cat /proc/sys/vm/swappiness)" "10"
-    assertEquals "$(cat /proc/sys/vm/vfs_cache_pressure)" "50"
+    assertEquals "10" "$(cat /proc/sys/vm/swappiness)"
+    assertEquals "50" "$(cat /proc/sys/vm/vfs_cache_pressure)"
 
     tweakSwapSettings "${swappiness}" "${cache_pressure}"
+}
+
+function testTimezone() {
+    local timezone="$(cat /etc/timezone)"
+
+    setTimezone "America/New_York"
+    assertEquals "America/New_York" "$(cat /etc/timezone)"
+    setTimezone "${timezone}"
+}
+
+function testNTP() {
+    local timedatectl="$(timedatectl status)"
+
+    configureNTP
+    assertContains "NTP synchronized: yes" "${timedatectl}"
 }
 
 function testTeardown () {
@@ -83,6 +98,8 @@ function testTeardown () {
     revertSSHConfig
     revertUfw
     deleteSwap
+
+    sudo apt-get --purge --assume-yes autoremove ntp
 }
 
 ### Helper Functions ###

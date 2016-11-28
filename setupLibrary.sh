@@ -1,5 +1,10 @@
 #!/bin/bash
 
+# Add the new user account
+# Arguments:
+#   Account Username
+#   Account Password
+#   Flag to determine if user account is added silently. (With / Without GECOS prompt)
 function addUserAccount() {
     local username=${1}
     local password=${2}
@@ -15,6 +20,10 @@ function addUserAccount() {
     sudo usermod -aG sudo ${username}
 }
 
+# Add the local machine public SSH Key for the new user account
+# Arguments:
+#   Account Username
+#   Public SSH Key
 function addSSHKey() {
     local username=${1}
     local sshKey=${2}
@@ -24,6 +33,10 @@ function addSSHKey() {
     execAsUser "${username}" "chmod 600 ~/.ssh/authorized_keys"
 }
 
+# Execute a command as a certain user
+# Arguments:
+#   Account Username
+#   Command to be executed
 function execAsUser() {
     local username=${1}
     local exec_command=${2}
@@ -31,16 +44,19 @@ function execAsUser() {
     sudo -u "${username}" -H sh -c "${exec_command}"
 }
 
+# Modify the sshd_config file
 function changeSSHConfig() {
     sudo sed -re 's/^(\#?)(PasswordAuthentication)([[:space:]]+)yes/\2\3no/' -i.$(echo 'old') /etc/ssh/sshd_config
     sudo sed -re 's/^(\#?)(PermitRootLogin)([[:space:]]+)(.*)/PermitRootLogin no/' -i /etc/ssh/sshd_config
 }
 
+# Setup the Uncomplicated Firewall
 function setupUfw() {
     sudo ufw allow OpenSSH
     yes y | sudo ufw enable
 }
 
+# Create the swap file based on amount of physical memory on machine (Maximum size of swap is 4GB)
 function createSwap() {
    local swapmem=$(($(getPhysicalMemory) * 2))
 
@@ -55,11 +71,16 @@ function createSwap() {
    sudo swapon /swapfile
 }
 
+# Mount the swapfile
 function mountSwap() {
     sudo cp /etc/fstab /etc/fstab.bak
     echo '/swapfile none swap sw 0 0' | sudo tee -a /etc/fstab
 }
 
+# Modify the swapfile settings
+# Arguments:
+#   new vm.swappiness value
+#   new vm.vfs_cache_pressure value
 function tweakSwapSettings() {
     local swappiness=${1}
     local vfs_cache_pressure=${2}
@@ -68,11 +89,29 @@ function tweakSwapSettings() {
     sudo sysctl vm.vfs_cache_pressure=${vfs_cache_pressure}
 }
 
+# Save the modified swap settings
 function saveSwapSettings() {
     echo 'vm.swappiness=10' | sudo tee -a /etc/sysctl.conf
     echo 'vm.vfs_cache_pressure=50' | sudo tee -a /etc/sysctl.conf
 }
 
+# Set the machine's timezone
+# Arguments:
+#   tz data timezone
+function setTimezone() {
+    local timezone=${1}
+    echo "${1}" | sudo tee /etc/timezone
+    sudo ln -fs "/usr/share/zoneinfo/${timezone}" /etc/localtime # https://bugs.launchpad.net/ubuntu/+source/tzdata/+bug/1554806
+    sudo dpkg-reconfigure -f noninteractive tzdata
+}
+
+# Configure Network Time Protocol
+function configureNTP() {
+    sudo apt-get update
+    sudo apt-get --assume-yes install ntp
+}
+
+# Gets the amount of physical memory in GB (rounded up) installed on the machine
 function getPhysicalMemory() {
     local phymem=$(free -g|awk '/^Mem:/{print $2}')
     if [[ ${phymem} == '0' ]]; then
