@@ -63,6 +63,18 @@ function testSwap() {
     assertContains "/swapfile" "$(sudo swapon --show)"
 }
 
+function testSwapSettings() {
+    local swappiness=$(cat /proc/sys/vm/swappiness)
+    local cache_pressure=$(cat /proc/sys/vm/vfs_cache_pressure)
+    
+    tweakSwapSettings 10 50
+
+    assertEquals "$(cat /proc/sys/vm/swappiness)" "10"
+    assertEquals "$(cat /proc/sys/vm/vfs_cache_pressure)" "50"
+
+    tweakSwapSettings "${swappiness}" "${cache_pressure}"
+}
+
 function testTeardown () {
     echo "Test Teardown"
 

@@ -55,6 +55,24 @@ function createSwap() {
    sudo swapon /swapfile
 }
 
+function mountSwap() {
+    sudo cp /etc/fstab /etc/fstab.bak
+    echo '/swapfile none swap sw 0 0' | sudo tee -a /etc/fstab
+}
+
+function tweakSwapSettings() {
+    local swappiness=${1}
+    local vfs_cache_pressure=${2}
+
+    sudo sysctl vm.swappiness=${swappiness}
+    sudo sysctl vm.vfs_cache_pressure=${vfs_cache_pressure}
+}
+
+function saveSwapSettings() {
+    echo 'vm.swappiness=10' | sudo tee -a /etc/sysctl.conf
+    echo 'vm.vfs_cache_pressure=50' | sudo tee -a /etc/sysctl.conf
+}
+
 function getPhysicalMemory() {
     local phymem=$(free -g|awk '/^Mem:/{print $2}')
     if [[ ${phymem} == '0' ]]; then

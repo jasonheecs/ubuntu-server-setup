@@ -12,6 +12,13 @@ function includeDependencies() {
     source "${current_dir}/setupLibrary.sh"
 }
 
+function setupSwap() {
+    createSwap
+    mountSwap
+    tweakSwapSettings "10" "50"
+    saveSwapSettings
+}
+
 current_dir=$(getCurrentDir)
 includeDependencies
 
@@ -32,5 +39,6 @@ read -rp $'Paste in the public SSH key for the new user:\n' sshKey
 addSSHKey "${username}" "${sshKey}"
 changeSSHConfig
 setupUfw
+setupSwap
 
 sudo service ssh restart
