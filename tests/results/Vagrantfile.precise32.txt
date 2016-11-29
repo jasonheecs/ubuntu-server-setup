@@ -1,0 +1,200 @@
+[H[2J
+unit-tests.sh:
+
+Test Setup
+Adding user `testuser3' ...
+Adding new group `testuser3' (1002) ...
+Adding new user `testuser3' (1002) with group `testuser3' ...
+Creating home directory `/home/testuser3' ...
+Copying files from `/etc/skel' ...
+testuser3 ALL=(ALL) NOPASSWD: ALL
+ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDBGTO0tsVejssuaYR5R3Y/i73SppJAhme1dH7W2c47d4gOqB4izP0+fRLfvbz/tnXFz4iOP/H6eCV05hqUhF+KYRxt9Y8tVMrpDZR2l75o6+xSbUOMu6xN+uVF0T9XzKcxmzTmnV7Na5up3QM3DoSRYX/EP3utr2+zAqpJIfKPLdA74w7g56oYWI9blpnpzxkEd3edVJOivUkpZ4JoenWManvIaSdMTJXMy3MtlQhva+j9CgguyVbUkdzK9KKEuah+pFZvaugtebsU+bllPTB0nlXGIJk98Ie9ZtxuY3nCKneB+KjKiXrAvXUPCI9mWkYS/1rggpFmu3HbXBnWSUdf localuser@machine.local
+Rules updated
+Rules updated (v6)
+Command may disrupt existing ssh connections. Proceed with operation (y|n)? Firewall is active and enabled on system startup
+Setting up swapspace version 1, size = 2097148 KiB
+no label, UUID=9e4e48f2-9cb6-4532-b8ac-494cb51acc71
+vm.swappiness = 10
+vm.vfs_cache_pressure = 50
+vm.swappiness = 60
+vm.vfs_cache_pressure = 100
+America/New_York
+
+Current default time zone: 'America/New_York'
+Local time is now:      Tue Nov 29 06:56:17 EST 2016.
+Universal Time is now:  Tue Nov 29 11:56:17 UTC 2016.
+
+Etc/UTC
+
+Current default time zone: 'Etc/UTC'
+Local time is now:      Tue Nov 29 11:56:17 UTC 2016.
+Universal Time is now:  Tue Nov 29 11:56:17 UTC 2016.
+
+Get:1 http://security.ubuntu.com precise-security Release.gpg [198 B]
+Hit http://archive.ubuntu.com precise Release.gpg
+Get:2 http://security.ubuntu.com precise-security Release [55.5 kB]
+Get:3 http://archive.ubuntu.com precise-updates Release.gpg [198 B]
+Hit http://archive.ubuntu.com precise-backports Release.gpg
+Hit http://archive.ubuntu.com precise Release
+Get:4 http://archive.ubuntu.com precise-updates Release [55.4 kB]
+Get:5 http://security.ubuntu.com precise-security/main Sources [146 kB]
+Get:6 http://security.ubuntu.com precise-security/universe Sources [53.7 kB]
+Hit http://archive.ubuntu.com precise-backports Release
+Get:7 http://security.ubuntu.com precise-security/main i386 Packages [722 kB]
+Get:8 http://archive.ubuntu.com precise/main Sources [934 kB]
+Get:9 http://security.ubuntu.com precise-security/universe i386 Packages [147 kB]
+Get:10 http://security.ubuntu.com precise-security/main TranslationIndex [208 B]
+Get:11 http://security.ubuntu.com precise-security/universe TranslationIndex [205 B]
+Get:12 http://security.ubuntu.com precise-security/main Translation-en [266 kB]
+Get:13 http://archive.ubuntu.com precise/restricted Sources [5,470 B]
+Get:14 http://archive.ubuntu.com precise/universe Sources [5,019 kB]
+Get:15 http://security.ubuntu.com precise-security/universe Translation-en [89.0 kB]
+Get:16 http://archive.ubuntu.com precise/multiverse Sources [155 kB]
+Hit http://archive.ubuntu.com precise/main i386 Packages
+Hit http://archive.ubuntu.com precise/restricted i386 Packages
+Hit http://archive.ubuntu.com precise/universe i386 Packages
+Hit http://archive.ubuntu.com precise/multiverse i386 Packages
+Hit http://archive.ubuntu.com precise/main TranslationIndex
+Hit http://archive.ubuntu.com precise/multiverse TranslationIndex
+Hit http://archive.ubuntu.com precise/restricted TranslationIndex
+Hit http://archive.ubuntu.com precise/universe TranslationIndex
+Get:17 http://archive.ubuntu.com precise-updates/main Sources [499 kB]
+Get:18 http://archive.ubuntu.com precise-updates/restricted Sources [8,840 B]
+Get:19 http://archive.ubuntu.com precise-updates/universe Sources [132 kB]
+Get:20 http://archive.ubuntu.com precise-updates/multiverse Sources [10.5 kB]
+Get:21 http://archive.ubuntu.com precise-updates/main i386 Packages [1,103 kB]
+Get:22 http://archive.ubuntu.com precise-updates/restricted i386 Packages [15.4 kB]
+Get:23 http://archive.ubuntu.com precise-updates/universe i386 Packages [292 kB]
+Get:24 http://archive.ubuntu.com precise-updates/multiverse i386 Packages [17.3 kB]
+Get:25 http://archive.ubuntu.com precise-updates/main TranslationIndex [208 B]
+Get:26 http://archive.ubuntu.com precise-updates/multiverse TranslationIndex [202 B]
+Get:27 http://archive.ubuntu.com precise-updates/restricted TranslationIndex [202 B]
+Get:28 http://archive.ubuntu.com precise-updates/universe TranslationIndex [205 B]
+Get:29 http://archive.ubuntu.com precise-backports/main Sources [5,922 B]
+Get:30 http://archive.ubuntu.com precise-backports/restricted Sources [28 B]
+Get:31 http://archive.ubuntu.com precise-backports/universe Sources [44.2 kB]
+Get:32 http://archive.ubuntu.com precise-backports/multiverse Sources [5,750 B]
+Hit http://archive.ubuntu.com precise-backports/main i386 Packages
+Hit http://archive.ubuntu.com precise-backports/restricted i386 Packages
+Hit http://archive.ubuntu.com precise-backports/universe i386 Packages
+Hit http://archive.ubuntu.com precise-backports/multiverse i386 Packages
+Hit http://archive.ubuntu.com precise-backports/main TranslationIndex
+Hit http://archive.ubuntu.com precise-backports/multiverse TranslationIndex
+Hit http://archive.ubuntu.com precise-backports/restricted TranslationIndex
+Hit http://archive.ubuntu.com precise-backports/universe TranslationIndex
+Hit http://archive.ubuntu.com precise/main Translation-en
+Hit http://archive.ubuntu.com precise/multiverse Translation-en
+Hit http://archive.ubuntu.com precise/restricted Translation-en
+Hit http://archive.ubuntu.com precise/universe Translation-en
+Get:33 http://archive.ubuntu.com precise-updates/main Translation-en [428 kB]
+Get:34 http://archive.ubuntu.com precise-updates/multiverse Translation-en [10.1 kB]
+Get:35 http://archive.ubuntu.com precise-updates/restricted Translation-en [3,682 B]
+Get:36 http://archive.ubuntu.com precise-updates/universe Translation-en [170 kB]
+Hit http://archive.ubuntu.com precise-backports/main Translation-en
+Hit http://archive.ubuntu.com precise-backports/multiverse Translation-en
+Hit http://archive.ubuntu.com precise-backports/restricted Translation-en
+Hit http://archive.ubuntu.com precise-backports/universe Translation-en
+Fetched 10.4 MB in 18s (549 kB/s)
+Reading package lists...
+Reading package lists...
+Building dependency tree...
+Reading state information...
+The following packages were automatically installed and are no longer required:
+  libxfixes3 xserver-common xserver-xorg-core libxfont1 xfonts-base
+  libxcomposite1 libfontenc1 xfonts-utils libgl1-mesa-dri libxdamage1
+  x11-xkb-utils xfonts-encodings libxrandr2 libxkbfile1 libllvm3.0
+Use 'apt-get autoremove' to remove them.
+The following extra packages will be installed:
+  libopts25
+Suggested packages:
+  ntp-doc
+The following NEW packages will be installed:
+  libopts25 ntp
+0 upgraded, 2 newly installed, 0 to remove and 4 not upgraded.
+Need to get 658 kB of archives.
+After this operation, 1,629 kB of additional disk space will be used.
+Get:1 http://archive.ubuntu.com/ubuntu/ precise/main libopts25 i386 1:5.12-0.1ubuntu1 [58.4 kB]
+Get:2 http://archive.ubuntu.com/ubuntu/ precise-updates/main ntp i386 1:4.2.6.p3+dfsg-1ubuntu3.11 [600 kB]
+Fetched 658 kB in 2s (284 kB/s)
+Selecting previously unselected package libopts25.
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 66634 files and directories currently installed.)
+Unpacking libopts25 (from .../libopts25_1%3a5.12-0.1ubuntu1_i386.deb) ...
+Selecting previously unselected package ntp.
+Unpacking ntp (from .../ntp_1%3a4.2.6.p3+dfsg-1ubuntu3.11_i386.deb) ...
+Processing triggers for man-db ...
+Processing triggers for ureadahead ...
+Setting up libopts25 (1:5.12-0.1ubuntu1) ...
+Setting up ntp (1:4.2.6.p3+dfsg-1ubuntu3.11) ...
+ * Starting NTP server ntpd       [252G [246G[ OK ]
+Processing triggers for libc-bin ...
+ldconfig deferred processing now taking place
+unit-tests.sh: line 88: timedatectl: command not found
+Line 88: testNTP: assertContains() failed. Expected "" to contain "NTP synchronized: yes"..
+Test Teardown
+Removing user `testuser3' from group `sudo' ...
+Done.
+Looking for files to backup/remove ...
+Removing files ...
+Removing user `testuser3' ...
+Warning: group `testuser3' has no more members.
+Done.
+Rule deleted
+Rule deleted (v6)
+Firewall stopped and disabled on system startup
+Reading package lists...
+Building dependency tree...
+Reading state information...
+The following packages will be REMOVED:
+  libfontenc1* libgl1-mesa-dri* libllvm3.0* libopts25* libxcomposite1*
+  libxdamage1* libxfixes3* libxfont1* libxkbfile1* libxrandr2* ntp*
+  x11-xkb-utils* xfonts-base* xfonts-encodings* xfonts-utils* xserver-common*
+  xserver-xorg-core*
+0 upgraded, 0 newly installed, 17 to remove and 4 not upgraded.
+After this operation, 54.9 MB disk space will be freed.
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 66679 files and directories currently installed.)
+Removing xserver-xorg-core ...
+Purging configuration files for xserver-xorg-core ...
+rm: cannot remove `/var/log/Xorg.*.log': No such file or directory
+rm: cannot remove `/var/log/Xorg.*.log.old': No such file or directory
+Removing xfonts-base ...
+Purging configuration files for xfonts-base ...
+warning: /usr/share/fonts/X11/misc does not exist or is not a directory
+warning: /usr/share/fonts/X11/misc does not exist or is not a directory
+Removing xfonts-utils ...
+Purging configuration files for xfonts-utils ...
+Removing libxfont1 ...
+Purging configuration files for libxfont1 ...
+Removing libfontenc1 ...
+Purging configuration files for libfontenc1 ...
+Removing libgl1-mesa-dri ...
+Removing libllvm3.0 ...
+Purging configuration files for libllvm3.0 ...
+Removing ntp ...
+ * Stopping NTP server ntpd       [252G [246G[ OK ]
+Purging configuration files for ntp ...
+Removing libopts25 ...
+Purging configuration files for libopts25 ...
+Removing libxcomposite1 ...
+Purging configuration files for libxcomposite1 ...
+Removing libxdamage1 ...
+Purging configuration files for libxdamage1 ...
+Removing libxfixes3 ...
+Purging configuration files for libxfixes3 ...
+Removing xserver-common ...
+Removing x11-xkb-utils ...
+Removing libxkbfile1 ...
+Purging configuration files for libxkbfile1 ...
+Removing libxrandr2 ...
+Purging configuration files for libxrandr2 ...
+Removing xfonts-encodings ...
+Processing triggers for man-db ...
+Processing triggers for fontconfig ...
+Processing triggers for libc-bin ...
+ldconfig deferred processing now taking place
+Processing triggers for ureadahead ...
+
+
+RESULTS: 12 tests passed.  1 tests failed.  13 tests total.
+Execution completed in 30 second(s)...
+
+Unit Tests failed.
