@@ -14,6 +14,7 @@ function includeDependencies() {
 
 current_dir=$(getCurrentDir)
 includeDependencies
+output_file="output.log"
 
 function setupSwap() {
     createSwap
@@ -62,21 +63,25 @@ addUserAccount "${username}" "${password}"
 
 read -rp $'Paste in the public SSH key for the new user:\n' sshKey
 echo 'Running setup script...'
-logTimestamp "output.log"
-disableSudoPassword "${username}" >>output.log 2>&1
-addSSHKey "${username}" "${sshKey}" >>output.log 2>&1
-changeSSHConfig >>output.log 2>&1
-setupUfw >>output.log 2>&1
+logTimestamp "${output_file}"
+
+disableSudoPassword "${username}" >>"${output_file}" 2>&1
+addSSHKey "${username}" "${sshKey}" >>"${output_file}" 2>&1
+changeSSHConfig >>"${output_file}" 2>&1
+setupUfw >>"${output_file}" 2>&1
 
 if [[ $(hasSwap) == "false" ]]; then
-    setupSwap >>output.log 2>&1
+    setupSwap >>"${output_file}" 2>&1
 fi
 
-setTimezone "Asia/Singapore" >>output.log 2>&1
-configureNTP >>output.log 2>&1
+timezone="Asia/Singapore"
+setTimezone "${timezone}" >>"${output_file}" 2>&1
+echo "Timezone is set to ${timezone}"
+
+configureNTP >>"${output_file}" 2>&1
 
 sudo service ssh restart
 
 cleanup
 
-echo 'Setup Done! Log file is located at output.log'
+echo "Setup Done! Log file is located at ${output_file}"
