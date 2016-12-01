@@ -1,125 +1,0 @@
-[3;J[H[2J
-unit-tests.sh:
-
-Test Setup
-Adding user `testuser3' ...
-Adding new group `testuser3' (1001) ...
-Adding new user `testuser3' (1001) with group `testuser3' ...
-Creating home directory `/home/testuser3' ...
-Copying files from `/etc/skel' ...
-testuser3 ALL=(ALL) NOPASSWD: ALL
-ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDBGTO0tsVejssuaYR5R3Y/i73SppJAhme1dH7W2c47d4gOqB4izP0+fRLfvbz/tnXFz4iOP/H6eCV05hqUhF+KYRxt9Y8tVMrpDZR2l75o6+xSbUOMu6xN+uVF0T9XzKcxmzTmnV7Na5up3QM3DoSRYX/EP3utr2+zAqpJIfKPLdA74w7g56oYWI9blpnpzxkEd3edVJOivUkpZ4JoenWManvIaSdMTJXMy3MtlQhva+j9CgguyVbUkdzK9KKEuah+pFZvaugtebsU+bllPTB0nlXGIJk98Ie9ZtxuY3nCKneB+KjKiXrAvXUPCI9mWkYS/1rggpFmu3HbXBnWSUdf localuser@machine.local
-Rules updated
-Rules updated (v6)
-Command may disrupt existing ssh connections. Proceed with operation (y|n)? Firewall is active and enabled on system startup
-Setting up swapspace version 1, size = 2 GiB (2147479552 bytes)
-no label, UUID=bd261c68-4e54-474c-b02d-1c71d421a833
-vm.swappiness = 10
-vm.vfs_cache_pressure = 50
-vm.swappiness = 60
-vm.vfs_cache_pressure = 100
-America/New_York
-
-Current default time zone: 'America/New_York'
-Local time is now:      Tue Nov 29 06:34:51 EST 2016.
-Universal Time is now:  Tue Nov 29 11:34:51 UTC 2016.
-
-Etc/UTC
-
-Current default time zone: 'Etc/UTC'
-Local time is now:      Tue Nov 29 11:34:51 UTC 2016.
-Universal Time is now:  Tue Nov 29 11:34:51 UTC 2016.
-
-Get:1 http://security.ubuntu.com/ubuntu xenial-security InRelease [102 kB]
-Hit:2 http://archive.ubuntu.com/ubuntu xenial InRelease
-Get:3 http://archive.ubuntu.com/ubuntu xenial-updates InRelease [102 kB]
-Get:4 http://security.ubuntu.com/ubuntu xenial-security/main Sources [50.2 kB]
-Get:5 http://security.ubuntu.com/ubuntu xenial-security/restricted Sources [1,804 B]
-Get:6 http://security.ubuntu.com/ubuntu xenial-security/universe Sources [14.4 kB]
-Get:7 http://archive.ubuntu.com/ubuntu xenial-backports InRelease [102 kB]
-Get:8 http://security.ubuntu.com/ubuntu xenial-security/multiverse Sources [728 B]
-Get:9 http://security.ubuntu.com/ubuntu xenial-security/main amd64 Packages [179 kB]
-Get:10 http://archive.ubuntu.com/ubuntu xenial/main Sources [868 kB]
-Get:11 http://security.ubuntu.com/ubuntu xenial-security/main Translation-en [72.3 kB]
-Get:12 http://security.ubuntu.com/ubuntu xenial-security/universe amd64 Packages [64.0 kB]
-Get:13 http://security.ubuntu.com/ubuntu xenial-security/universe Translation-en [34.4 kB]
-Get:14 http://archive.ubuntu.com/ubuntu xenial/restricted Sources [4,808 B]
-Get:15 http://archive.ubuntu.com/ubuntu xenial/universe Sources [7,728 kB]
-Get:16 http://archive.ubuntu.com/ubuntu xenial/multiverse Sources [179 kB]
-Get:17 http://archive.ubuntu.com/ubuntu xenial-updates/main Sources [207 kB]
-Get:18 http://archive.ubuntu.com/ubuntu xenial-updates/restricted Sources [1,804 B]
-Get:19 http://archive.ubuntu.com/ubuntu xenial-updates/universe Sources [110 kB]
-Get:20 http://archive.ubuntu.com/ubuntu xenial-updates/multiverse Sources [3,648 B]
-Get:21 http://archive.ubuntu.com/ubuntu xenial-updates/main amd64 Packages [427 kB]
-Get:22 http://archive.ubuntu.com/ubuntu xenial-updates/main Translation-en [165 kB]
-Get:23 http://archive.ubuntu.com/ubuntu xenial-updates/universe amd64 Packages [366 kB]
-Get:24 http://archive.ubuntu.com/ubuntu xenial-updates/universe Translation-en [132 kB]
-Get:25 http://archive.ubuntu.com/ubuntu xenial-backports/main Sources [3,180 B]
-Get:26 http://archive.ubuntu.com/ubuntu xenial-backports/universe Sources [1,868 B]
-Get:27 http://archive.ubuntu.com/ubuntu xenial-backports/main amd64 Packages [4,392 B]
-Get:28 http://archive.ubuntu.com/ubuntu xenial-backports/main Translation-en [3,104 B]
-Get:29 http://archive.ubuntu.com/ubuntu xenial-backports/universe amd64 Packages [2,412 B]
-Get:30 http://archive.ubuntu.com/ubuntu xenial-backports/universe Translation-en [1,216 B]
-Fetched 10.9 MB in 9s (1,198 kB/s)
-Reading package lists...
-Reading package lists...
-Building dependency tree...
-Reading state information...
-The following additional packages will be installed:
-  libopts25
-Suggested packages:
-  ntp-doc
-The following NEW packages will be installed:
-  libopts25 ntp
-0 upgraded, 2 newly installed, 0 to remove and 15 not upgraded.
-Need to get 577 kB of archives.
-After this operation, 1,791 kB of additional disk space will be used.
-Get:1 http://archive.ubuntu.com/ubuntu xenial/main amd64 libopts25 amd64 1:5.18.7-3 [57.8 kB]
-Get:2 http://archive.ubuntu.com/ubuntu xenial-updates/main amd64 ntp amd64 1:4.2.8p4+dfsg-3ubuntu5.3 [520 kB]
-Fetched 577 kB in 2s (283 kB/s)
-Selecting previously unselected package libopts25:amd64.
-(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 57661 files and directories currently installed.)
-Preparing to unpack .../libopts25_1%3a5.18.7-3_amd64.deb ...
-Unpacking libopts25:amd64 (1:5.18.7-3) ...
-Selecting previously unselected package ntp.
-Preparing to unpack .../ntp_1%3a4.2.8p4+dfsg-3ubuntu5.3_amd64.deb ...
-Unpacking ntp (1:4.2.8p4+dfsg-3ubuntu5.3) ...
-Processing triggers for libc-bin (2.23-0ubuntu4) ...
-Processing triggers for systemd (229-4ubuntu12) ...
-Processing triggers for ureadahead (0.100.0-19) ...
-Processing triggers for man-db (2.7.5-1) ...
-Setting up libopts25:amd64 (1:5.18.7-3) ...
-Setting up ntp (1:4.2.8p4+dfsg-3ubuntu5.3) ...
-Processing triggers for libc-bin (2.23-0ubuntu4) ...
-Processing triggers for systemd (229-4ubuntu12) ...
-Processing triggers for ureadahead (0.100.0-19) ...
-Test Teardown
-Removing user `testuser3' from group `sudo' ...
-Done.
-Looking for files to backup/remove ...
-Removing files ...
-Removing user `testuser3' ...
-Warning: group `testuser3' has no more members.
-Done.
-Rule deleted
-Rule deleted (v6)
-Firewall stopped and disabled on system startup
-Reading package lists...
-Building dependency tree...
-Reading state information...
-The following packages will be REMOVED:
-  libopts25* ntp*
-0 upgraded, 0 newly installed, 2 to remove and 15 not upgraded.
-After this operation, 1,791 kB disk space will be freed.
-(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 57723 files and directories currently installed.)
-Removing ntp (1:4.2.8p4+dfsg-3ubuntu5.3) ...
-Purging configuration files for ntp (1:4.2.8p4+dfsg-3ubuntu5.3) ...
-Removing libopts25:amd64 (1:5.18.7-3) ...
-Processing triggers for man-db (2.7.5-1) ...
-Processing triggers for libc-bin (2.23-0ubuntu4) ...
-All unit tests passed.
-
-
-RESULTS: 13 tests passed.  0 tests failed.  13 tests total.
-Execution completed in 21 second(s)...
-

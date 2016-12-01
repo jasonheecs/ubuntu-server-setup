@@ -12,6 +12,9 @@ function includeDependencies() {
     source "${current_dir}/setupLibrary.sh"
 }
 
+current_dir=$(getCurrentDir)
+includeDependencies
+
 function setupSwap() {
     createSwap
     mountSwap
@@ -19,8 +22,11 @@ function setupSwap() {
     saveSwapSettings
 }
 
-current_dir=$(getCurrentDir)
-includeDependencies
+function cleanup() {
+    if [[ -f "/etc/sudoers.bak" ]]; then
+        revertSudoers
+    fi
+}
 
 read -p "Enter the username of the new user account:" username
 read -s -p "Enter new UNIX password:" password
@@ -33,9 +39,12 @@ if [[ "${password}" != "${password_confirmation}" ]]; then
     exit 1
 fi
 
+trap cleanup EXIT SIGHUP SIGINT SIGTERM
+
 addUserAccount "${username}" "${password}"
 
 read -rp $'Paste in the public SSH key for the new user:\n' sshKey
+disableSudoPassword "${username}"
 addSSHKey "${username}" "${sshKey}"
 changeSSHConfig
 setupUfw
@@ -44,3 +53,5 @@ setTimezone "Asia/Singapore"
 configureNTP
 
 sudo service ssh restart
+
+cleanup

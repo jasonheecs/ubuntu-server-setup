@@ -2,4 +2,4 @@
 *.log
 .DS_Store
 !results/.gitkeep
-results/*
+/results/*

@@ -10,7 +10,7 @@ current_dir=$(getCurrentDir)
 source "${current_dir}/lib/BashScriptTestingLibrary.shl"
 source "${current_dir}/../setupLibrary.sh"
 
-test_user_account=testuser3
+test_user_account=testuser
 test_account_password="123%pass_321"
 
 ### Unit Tests ###
@@ -31,7 +31,7 @@ function testIfUserIsSudo() {
 }
 
 function testAddingOfSSHKey() {
-    disableSudoPassword
+    disableSudoPassword "${test_user_account}"
 
     local dummy_key="ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDBGTO0tsVejssuaYR5R3Y/i73SppJAhme1dH7W2c47d4gOqB4izP0+fRLfvbz/tnXFz4iOP/H6eCV05hqUhF+KYRxt9Y8tVMrpDZR2l75o6+xSbUOMu6xN+uVF0T9XzKcxmzTmnV7Na5up3QM3DoSRYX/EP3utr2+zAqpJIfKPLdA74w7g56oYWI9blpnpzxkEd3edVJOivUkpZ4JoenWManvIaSdMTJXMy3MtlQhva+j9CgguyVbUkdzK9KKEuah+pFZvaugtebsU+bllPTB0nlXGIJk98Ie9ZtxuY3nCKneB+KjKiXrAvXUPCI9mWkYS/1rggpFmu3HbXBnWSUdf localuser@machine.local"
     addSSHKey "${test_user_account}" "${dummy_key}"
@@ -105,16 +105,6 @@ function testTeardown () {
 function deleteTestUser() {
     sudo deluser ${test_user_account} sudo
     sudo deluser -f --remove-home ${test_user_account}
-}
-
-function revertSudoers() {
-    sudo cp /etc/sudoers.bak /etc/sudoers
-    sudo rm -rf /etc/sudoers.bak
-}
-
-function disableSudoPassword() {
-    sudo cp /etc/sudoers /etc/sudoers.bak
-    sudo bash -c "echo '${test_user_account} ALL=(ALL) NOPASSWD: ALL' | (EDITOR='tee -a' visudo)"
 }
 
 function revertSSHConfig() {

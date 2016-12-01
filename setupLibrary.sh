@@ -11,9 +11,9 @@ function addUserAccount() {
     local silent_mode=${3}
 
     if [[ ${silent_mode} == "true" ]]; then
-        sudo adduser --disabled-password --gecos '' ${username}
+        sudo adduser --disabled-password --gecos '' "${username}"
     else
-        sudo adduser --disabled-password ${username}
+        sudo adduser --disabled-password "${username}"
     fi
 
     echo "${username}:${password}" | sudo chpasswd
@@ -119,4 +119,20 @@ function getPhysicalMemory() {
     else
         echo ${phymem}
     fi
+}
+
+# Disables the sudo password prompt for a user account by editing /etc/sudoers
+# Arguments:
+#   Account username
+function disableSudoPassword() {
+    local username="${1}"
+
+    sudo cp /etc/sudoers /etc/sudoers.bak
+    sudo bash -c "echo '${1} ALL=(ALL) NOPASSWD: ALL' | (EDITOR='tee -a' visudo)"
+}
+
+# Reverts the original /etc/sudoers file before this script is ran
+function revertSudoers() {
+    sudo cp /etc/sudoers.bak /etc/sudoers
+    sudo rm -rf /etc/sudoers.bak
 }
