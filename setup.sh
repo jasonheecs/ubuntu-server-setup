@@ -22,10 +22,27 @@ function setupSwap() {
     saveSwapSettings
 }
 
+function hasSwap() {
+    local swap_status=$(sudo swapon -s)
+
+    if [[ "$(sudo swapon -s)" == *"/swapfile"* ]]; then
+        echo "true"
+    else
+        echo "false"
+    fi
+}
+
 function cleanup() {
     if [[ -f "/etc/sudoers.bak" ]]; then
         revertSudoers
     fi
+}
+
+function logTimestamp() {
+    local filename=${1}
+    echo "===================" >>"${filename}" 2>&1
+    echo "Log generated on $(date)" >>"${filename}" 2>&1
+    echo "===================" >>"${filename}" 2>&1
 }
 
 read -p "Enter the username of the new user account:" username
@@ -44,14 +61,22 @@ trap cleanup EXIT SIGHUP SIGINT SIGTERM
 addUserAccount "${username}" "${password}"
 
 read -rp $'Paste in the public SSH key for the new user:\n' sshKey
-disableSudoPassword "${username}"
-addSSHKey "${username}" "${sshKey}"
-changeSSHConfig
-setupUfw
-setupSwap
-setTimezone "Asia/Singapore"
-configureNTP
+echo 'Running setup script...'
+logTimestamp "output.log"
+disableSudoPassword "${username}" >>output.log 2>&1
+addSSHKey "${username}" "${sshKey}" >>output.log 2>&1
+changeSSHConfig >>output.log 2>&1
+setupUfw >>output.log 2>&1
+
+if [[ $(hasSwap) == "false" ]]; then
+    setupSwap >>output.log 2>&1
+fi
+
+setTimezone "Asia/Singapore" >>output.log 2>&1
+configureNTP >>output.log 2>&1
 
 sudo service ssh restart
 
 cleanup
+
+echo 'Setup Done! Log file is located at output.log'
