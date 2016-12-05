@@ -10,7 +10,7 @@ set -ex
 function getCurrentDir() {
     local current_dir="${BASH_SOURCE%/*}"
     if [[ ! -d "${current_dir}" ]]; then current_dir="$PWD"; fi
-    echo ${current_dir}
+    echo "${current_dir}"
 }
 
 function runUnitTest() {

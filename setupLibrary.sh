@@ -17,7 +17,7 @@ function addUserAccount() {
     fi
 
     echo "${username}:${password}" | sudo chpasswd
-    sudo usermod -aG sudo ${username}
+    sudo usermod -aG sudo "${username}"
 }
 
 # Add the local machine public SSH Key for the new user account
@@ -45,8 +45,9 @@ function execAsUser() {
 }
 
 # Modify the sshd_config file
+# shellcheck disable=2116
 function changeSSHConfig() {
-    sudo sed -re 's/^(\#?)(PasswordAuthentication)([[:space:]]+)yes/\2\3no/' -i.$(echo 'old') /etc/ssh/sshd_config
+    sudo sed -re 's/^(\#?)(PasswordAuthentication)([[:space:]]+)yes/\2\3no/' -i."$(echo 'old')" /etc/ssh/sshd_config
     sudo sed -re 's/^(\#?)(PermitRootLogin)([[:space:]]+)(.*)/PermitRootLogin no/' -i /etc/ssh/sshd_config
 }
 
@@ -61,7 +62,7 @@ function createSwap() {
    local swapmem=$(($(getPhysicalMemory) * 2))
 
    # Anything over 4GB in swap is probably unnecessary as a RAM fallback
-   if [[ ${swapmem} > 4 ]]; then
+   if [ ${swapmem} -gt 4 ]; then
         phymem=4
    fi
 
@@ -85,8 +86,8 @@ function tweakSwapSettings() {
     local swappiness=${1}
     local vfs_cache_pressure=${2}
 
-    sudo sysctl vm.swappiness=${swappiness}
-    sudo sysctl vm.vfs_cache_pressure=${vfs_cache_pressure}
+    sudo sysctl vm.swappiness="${swappiness}"
+    sudo sysctl vm.vfs_cache_pressure="${vfs_cache_pressure}"
 }
 
 # Save the modified swap settings
@@ -113,11 +114,13 @@ function configureNTP() {
 
 # Gets the amount of physical memory in GB (rounded up) installed on the machine
 function getPhysicalMemory() {
-    local phymem=$(free -g|awk '/^Mem:/{print $2}')
+    local phymem
+    phymem="$(free -g|awk '/^Mem:/{print $2}')"
+    
     if [[ ${phymem} == '0' ]]; then
         echo 1
     else
-        echo ${phymem}
+        echo "${phymem}"
     fi
 }
 

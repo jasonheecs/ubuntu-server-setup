@@ -5,10 +5,11 @@ set -e
 function getCurrentDir() {
     local current_dir="${BASH_SOURCE%/*}"
     if [[ ! -d "${current_dir}" ]]; then current_dir="$PWD"; fi
-    echo ${current_dir}
+    echo "${current_dir}"
 }
 
 function includeDependencies() {
+    # shellcheck source=./setupLibrary.sh
     source "${current_dir}/setupLibrary.sh"
 }
 
@@ -24,13 +25,7 @@ function setupSwap() {
 }
 
 function hasSwap() {
-    local swap_status=$(sudo swapon -s)
-
-    if [[ "$(sudo swapon -s)" == *"/swapfile"* ]]; then
-        echo "true"
-    else
-        echo "false"
-    fi
+    [[ "$(sudo swapon -s)" == *"/swapfile"* ]]
 }
 
 function cleanup() {
@@ -41,15 +36,17 @@ function cleanup() {
 
 function logTimestamp() {
     local filename=${1}
-    echo "===================" >>"${filename}" 2>&1
-    echo "Log generated on $(date)" >>"${filename}" 2>&1
-    echo "===================" >>"${filename}" 2>&1
+    {
+        echo "===================" 
+        echo "Log generated on $(date)"
+        echo "==================="
+    } >>"${filename}" 2>&1
 }
 
-read -p "Enter the username of the new user account:" username
-read -s -p "Enter new UNIX password:" password
+read -rp "Enter the username of the new user account:" username
+read -s -rp "Enter new UNIX password:" password
 printf "\n"
-read -s -p "Retype new UNIX password:" password_confirmation
+read -s -rp "Retype new UNIX password:" password_confirmation
 printf "\n"
 
 if [[ "${password}" != "${password_confirmation}" ]]; then
@@ -65,23 +62,24 @@ read -rp $'Paste in the public SSH key for the new user:\n' sshKey
 echo 'Running setup script...'
 logTimestamp "${output_file}"
 
-disableSudoPassword "${username}" >>"${output_file}" 2>&1
-addSSHKey "${username}" "${sshKey}" >>"${output_file}" 2>&1
-changeSSHConfig >>"${output_file}" 2>&1
-setupUfw >>"${output_file}" 2>&1
+exec 3>&1 >>"${output_file}" 2>&1
+disableSudoPassword "${username}"
+addSSHKey "${username}" "${sshKey}"
+changeSSHConfig
+setupUfw
 
-if [[ $(hasSwap) == "false" ]]; then
-    setupSwap >>"${output_file}" 2>&1
+if ! hasSwap; then
+    setupSwap
 fi
 
 timezone="Asia/Singapore"
-setTimezone "${timezone}" >>"${output_file}" 2>&1
-echo "Timezone is set to ${timezone}"
+setTimezone "${timezone}"
+echo "Timezone is set to ${timezone}" >&3
 
-configureNTP >>"${output_file}" 2>&1
+configureNTP
 
 sudo service ssh restart
 
 cleanup
 
-echo "Setup Done! Log file is located at ${output_file}"
+echo "Setup Done! Log file is located at ${output_file}" >&3
