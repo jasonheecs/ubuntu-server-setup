@@ -66,7 +66,7 @@ function createSwap() {
         phymem=4
    fi
 
-   sudo fallocate -l ${swapmem}G /swapfile
+   sudo fallocate -l "${swapmem}G" /swapfile
    sudo chmod 600 /swapfile
    sudo mkswap /swapfile
    sudo swapon /swapfile

@@ -43,17 +43,34 @@ function logTimestamp() {
     } >>"${filename}" 2>&1
 }
 
+function setupTimezone() {
+    echo -ne "Enter the timezone for the server (Default is 'Asia/Singapore'):\n" >&3
+    read -r timezone
+    if [ -z "${timezone}" ]; then
+        timezone="Asia/Singapore"
+    fi
+    setTimezone "${timezone}"
+    echo "Timezone is set to $(cat /etc/timezone)" >&3
+}
+
 read -rp "Enter the username of the new user account:" username
-read -s -rp "Enter new UNIX password:" password
-printf "\n"
-read -s -rp "Retype new UNIX password:" password_confirmation
-printf "\n"
 
-if [[ "${password}" != "${password_confirmation}" ]]; then
-    echo "Passwords do not match!"
-    exit 1
-fi
+# Keep prompting for the password and password confirmation
+PASSWORDS_MATCH=0
+while [ "${PASSWORDS_MATCH}" -eq "0" ]; do
+    read -s -rp "Enter new UNIX password:" password
+    printf "\n"
+    read -s -rp "Retype new UNIX password:" password_confirmation
+    printf "\n"
 
+    if [[ "${password}" != "${password_confirmation}" ]]; then
+        echo "Passwords do not match! Please try again."
+    else
+        PASSWORDS_MATCH=1
+    fi
+done
+
+# Run setup functions
 trap cleanup EXIT SIGHUP SIGINT SIGTERM
 
 addUserAccount "${username}" "${password}"
@@ -72,10 +89,9 @@ if ! hasSwap; then
     setupSwap
 fi
 
-timezone="Asia/Singapore"
-setTimezone "${timezone}"
-echo "Timezone is set to ${timezone}" >&3
+setupTimezone
 
+echo "Installing Network Time Protocol... " >&3
 configureNTP
 
 sudo service ssh restart
