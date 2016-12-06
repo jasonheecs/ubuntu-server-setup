@@ -28,8 +28,6 @@ cd ubuntu-server-setup
 bash setup.sh
 ```
 
-You can change the setup's default timezone by editing setup.sh
-
 # Setup prompts
 When the setup script is run, you will be prompted to enter the username and password of the new user account. 
 
@@ -38,6 +36,8 @@ Following that, you will then be prompted to add a public ssh key (which should 
 ssh-keygen -t rsa
 cat ~/.ssh/id_rsa.pub
 ```
+
+Finally, you will be prompted to specify a [timezone](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones) for the server. It will be set to 'Asia/Singapore' if you do not specify a value.
 
 # Supported versions
 This setup script has been tested against Ubuntu 14.04 and Ubuntu 16.04.
