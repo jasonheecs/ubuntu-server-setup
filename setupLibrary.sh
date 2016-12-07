@@ -63,7 +63,7 @@ function createSwap() {
 
    # Anything over 4GB in swap is probably unnecessary as a RAM fallback
    if [ ${swapmem} -gt 4 ]; then
-        phymem=4
+        swapmem=4
    fi
 
    sudo fallocate -l "${swapmem}G" /swapfile
