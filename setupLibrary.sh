@@ -91,9 +91,15 @@ function tweakSwapSettings() {
 }
 
 # Save the modified swap settings
+# Arguments:
+#   new vm.swappiness value
+#   new vm.vfs_cache_pressure value
 function saveSwapSettings() {
-    echo 'vm.swappiness=10' | sudo tee -a /etc/sysctl.conf
-    echo 'vm.vfs_cache_pressure=50' | sudo tee -a /etc/sysctl.conf
+    local swappiness=${1}
+    local vfs_cache_pressure=${2}
+
+    echo "vm.swappiness=${swappiness}" | sudo tee -a /etc/sysctl.conf
+    echo "vm.vfs_cache_pressure=${vfs_cache_pressure}" | sudo tee -a /etc/sysctl.conf
 }
 
 # Set the machine's timezone

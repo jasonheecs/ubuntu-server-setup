@@ -57,7 +57,7 @@ function setupSwap() {
     createSwap
     mountSwap
     tweakSwapSettings "10" "50"
-    saveSwapSettings
+    saveSwapSettings "10" "50"
 }
 
 function hasSwap() {
