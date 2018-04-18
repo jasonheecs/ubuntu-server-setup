@@ -1,0 +1,8 @@
+language: generic
+sudo: required
+matrix:
+  include:
+    - dist: trusty
+      sudo: required
+script:
+  - bash unit-tests.sh
