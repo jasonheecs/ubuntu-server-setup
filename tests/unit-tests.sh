@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 function getCurrentDir() {
     local current_dir="${BASH_SOURCE%/*}"
     if [[ ! -d "${current_dir}" ]]; then current_dir="$PWD"; fi
@@ -7,7 +9,7 @@ function getCurrentDir() {
 }
 
 current_dir=$(getCurrentDir)
-source "${current_dir}/lib/BashScriptTestingLibrary.shl"
+source "${current_dir}/lib/bunit.shl"
 source "${current_dir}/../setupLibrary.sh"
 
 test_user_account=testuser

@@ -41,3 +41,7 @@ Finally, you will be prompted to specify a [timezone](https://en.wikipedia.org/w
 
 # Supported versions
 This setup script has been tested against Ubuntu 14.04 and Ubuntu 16.04.
+
+# Running tests
+Tests are run against a set of Vagrant VMs. To run the tests, run the following in the project's directory:  
+`./tests/tests.sh`
