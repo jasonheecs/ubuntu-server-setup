@@ -1,5 +1,13 @@
 #!/bin/bash
 
+set -e
+
+while getopts "skip" opt; do
+    case $opt in
+    s) SKIP_SETUP=true ;;
+    esac
+done
+
 function getCurrentDir() {
     local current_dir="${BASH_SOURCE%/*}"
     if [[ ! -d "${current_dir}" ]]; then current_dir="$PWD"; fi
@@ -7,11 +15,16 @@ function getCurrentDir() {
 }
 
 current_dir=$(getCurrentDir)
-source "${current_dir}/lib/BashScriptTestingLibrary.shl"
+# shellcheck source=/dev/null
+source "${current_dir}/lib/bunit.shl"
+# shellcheck source=/dev/null
 source "${current_dir}/../setupLibrary.sh"
 
 test_user_account=testuser
 test_account_password="123%pass_321"
+
+# shellcheck disable=SC2034
+VERBOSE_MODE="true"
 
 ### Unit Tests ###
 
@@ -27,29 +40,35 @@ function testUserAccountCreated() {
 }
 
 function testIfUserIsSudo() {
-    local user_access
-    user_access="$(sudo -l -U ${test_user_account})"
-    assertContains "(ALL : ALL) ALL" "${user_access}"
+    if [[ $SKIP_SETUP != true ]]; then
+        local user_access
+        user_access="$(sudo -l -U ${test_user_account})"
+        assertContains "(ALL : ALL) ALL" "${user_access}"
+    fi
 }
 
 function testAddingOfSSHKey() {
-    disableSudoPassword "${test_user_account}"
+    if [[ $SKIP_SETUP != true ]]; then
+        disableSudoPassword "${test_user_account}"
 
-    local dummy_key="ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDBGTO0tsVejssuaYR5R3Y/i73SppJAhme1dH7W2c47d4gOqB4izP0+fRLfvbz/tnXFz4iOP/H6eCV05hqUhF+KYRxt9Y8tVMrpDZR2l75o6+xSbUOMu6xN+uVF0T9XzKcxmzTmnV7Na5up3QM3DoSRYX/EP3utr2+zAqpJIfKPLdA74w7g56oYWI9blpnpzxkEd3edVJOivUkpZ4JoenWManvIaSdMTJXMy3MtlQhva+j9CgguyVbUkdzK9KKEuah+pFZvaugtebsU+bllPTB0nlXGIJk98Ie9ZtxuY3nCKneB+KjKiXrAvXUPCI9mWkYS/1rggpFmu3HbXBnWSUdf localuser@machine.local"
-    addSSHKey "${test_user_account}" "${dummy_key}"
+        local dummy_key="ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDBGTO0tsVejssuaYR5R3Y/i73SppJAhme1dH7W2c47d4gOqB4izP0+fRLfvbz/tnXFz4iOP/H6eCV05hqUhF+KYRxt9Y8tVMrpDZR2l75o6+xSbUOMu6xN+uVF0T9XzKcxmzTmnV7Na5up3QM3DoSRYX/EP3utr2+zAqpJIfKPLdA74w7g56oYWI9blpnpzxkEd3edVJOivUkpZ4JoenWManvIaSdMTJXMy3MtlQhva+j9CgguyVbUkdzK9KKEuah+pFZvaugtebsU+bllPTB0nlXGIJk98Ie9ZtxuY3nCKneB+KjKiXrAvXUPCI9mWkYS/1rggpFmu3HbXBnWSUdf localuser@machine.local"
+        addSSHKey "${test_user_account}" "${dummy_key}"
 
-    local ssh_file
-    ssh_file="$(sudo cat /home/${test_user_account}/.ssh/authorized_keys)"
-    assertEquals "${ssh_file}" "${dummy_key}"
+        local ssh_file
+        ssh_file="$(sudo cat /home/${test_user_account}/.ssh/authorized_keys)"
+        assertEquals "${ssh_file}" "${dummy_key}"
+    fi
 }
 
 function testChangeSSHConfig() {
-    changeSSHConfig
+    if [[ $SKIP_SETUP != true ]]; then
+        changeSSHConfig
 
-    local ssh_config
-    ssh_config="$(sudo cat /etc/ssh/sshd_config)"
-    assertContains "PasswordAuthentication no" "${ssh_config}"
-    assertContains "PermitRootLogin no" "${ssh_config}"
+        local ssh_config
+        ssh_config="$(sudo cat /etc/ssh/sshd_config)"
+        assertContains "PasswordAuthentication no" "${ssh_config}"
+        assertContains "PermitRootLogin no" "${ssh_config}"
+    fi
 }
 
 function testUfw() {
@@ -101,8 +120,12 @@ function testTeardown () {
     echo "Test Teardown"
 
     deleteTestUser
-    revertSudoers
-    revertSSHConfig
+
+    if [[ $SKIP_SETUP != true ]]; then
+        revertSudoers
+        revertSSHConfig
+    fi
+    
     revertUfw
     deleteSwap
 

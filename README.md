@@ -1,4 +1,6 @@
 # Bash setup script for Ubuntu servers
+[![Build Status](https://travis-ci.org/jasonheecs/ubuntu-server-setup.svg?branch=master)](https://travis-ci.org/jasonheecs/ubuntu-server-setup)
+
 This is a setup script to automate the setup and provisioning of Ubuntu servers. It does the following:
 * Adds a new user account with sudo access
 * Adds a public ssh key for the new user account
@@ -41,3 +43,7 @@ Finally, you will be prompted to specify a [timezone](https://en.wikipedia.org/w
 
 # Supported versions
 This setup script has been tested against Ubuntu 14.04 and Ubuntu 16.04.
+
+# Running tests
+Tests are run against a set of Vagrant VMs. To run the tests, run the following in the project's directory:  
+`./tests/tests.sh`
