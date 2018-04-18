@@ -4,6 +4,10 @@ matrix:
   include:
     - dist: trusty
       sudo: required
+addons:
+  apt:
+    sources:
+    - debian-sid
 # Use https (public access) instead of git for git-submodules. This modifies only Travis-CI behavior
 git:
   submodules: false
@@ -11,5 +15,10 @@ git:
 before_install:
   - sed -i 's/git@github.com:/https:\/\/github.com\//' .gitmodules
   - git submodule update --init --recursive
+before-script:
+  - sudo apt-get install cabal-install
+  - cabal update
+  - cabal install shellcheck
 script:
+  - bash -c 'shopt -s globstar; shellcheck ./*.sh; shellcheck ./tests/*.sh'
   - bash tests/unit-tests.sh -skip

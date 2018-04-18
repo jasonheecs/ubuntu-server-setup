@@ -2,12 +2,6 @@
 
 set -e
 
-# while getopts "skip" opt; do
-#     case $opt in
-#     skip-setup) SKIP_SETUP=true ;;
-#     esac
-# done
-
 while getopts "skip" opt; do
     case $opt in
     s) SKIP_SETUP=true ;;
@@ -21,12 +15,15 @@ function getCurrentDir() {
 }
 
 current_dir=$(getCurrentDir)
+# shellcheck source=/dev/null
 source "${current_dir}/lib/bunit.shl"
+# shellcheck source=/dev/null
 source "${current_dir}/../setupLibrary.sh"
 
 test_user_account=testuser
 test_account_password="123%pass_321"
 
+# shellcheck disable=SC2034
 VERBOSE_MODE="true"
 
 ### Unit Tests ###
@@ -64,12 +61,14 @@ function testAddingOfSSHKey() {
 }
 
 function testChangeSSHConfig() {
-    changeSSHConfig
+    if [[ $SKIP_SETUP != true ]]; then
+        changeSSHConfig
 
-    local ssh_config
-    ssh_config="$(sudo cat /etc/ssh/sshd_config)"
-    assertContains "PasswordAuthentication no" "${ssh_config}"
-    assertContains "PermitRootLogin no" "${ssh_config}"
+        local ssh_config
+        ssh_config="$(sudo cat /etc/ssh/sshd_config)"
+        assertContains "PasswordAuthentication no" "${ssh_config}"
+        assertContains "PermitRootLogin no" "${ssh_config}"
+    fi
 }
 
 function testUfw() {
@@ -121,10 +120,12 @@ function testTeardown () {
     echo "Test Teardown"
 
     deleteTestUser
+
     if [[ $SKIP_SETUP != true ]]; then
         revertSudoers
+        revertSSHConfig
     fi
-    revertSSHConfig
+    
     revertUfw
     deleteSwap
 
