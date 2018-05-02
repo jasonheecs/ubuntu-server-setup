@@ -37,6 +37,6 @@ install:
 build_script:
 - ps: Test-NetConnection google.com -Port 80
 test_script:
-- shellcheck (Get-ChildItem .\*.sh | Select-Object -Expand FullName)
-- shellcheck (Get-ChildItem .\tests\*.sh | Select-Object -Expand FullName)
+- shellcheck (Get-ChildItem -Path *.sh)
+- shellcheck (Get-ChildItem -Path .\tests\*.sh)
 - ps: sh tests/tests.sh
