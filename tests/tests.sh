@@ -17,6 +17,8 @@ function runUnitTest() {
     local results_filename=${1}
 
     vagrant up
+    vagrant reload
+    vagrant up
     vagrant ssh -c "cd /vagrant/tests; bash unit-tests.sh > results/${results_filename}.txt 2>&1"
     vagrant destroy -f
     rm -rf "Vagrantfile"
