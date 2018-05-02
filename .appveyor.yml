@@ -21,7 +21,7 @@ install:
 - ps: |
     choco install virtualbox --version 5.1.22
     choco install vagrant --version 1.9.5
-    choco install ghc -y --version 7.8.4
+    choco install ghc --version 7.8.4.1
     cd $env:APPVEYOR_BUILD_FOLDER
 - netsh winsock reset
 - refreshenv
