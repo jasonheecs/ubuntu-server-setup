@@ -26,6 +26,7 @@ install:
 - netsh winsock reset
 - refreshenv
 - scoop install shellcheck
+- refreshenv
 - ps: Restart-Computer -Force
 - vagrant -v
 - VBoxManage -v
