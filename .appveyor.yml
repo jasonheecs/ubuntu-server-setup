@@ -25,7 +25,7 @@ install:
     cd $env:APPVEYOR_BUILD_FOLDER
 - netsh winsock reset
 - refreshenv
-- scoop install shellcheck
+- ps: scoop install shellcheck
 - refreshenv
 - ps: Restart-Computer -Force
 - vagrant -v
