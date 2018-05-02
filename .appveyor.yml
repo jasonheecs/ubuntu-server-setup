@@ -21,12 +21,11 @@ install:
 - ps: |
     choco install virtualbox --version 5.1.22
     choco install vagrant --version 1.9.5
-    choco install ghc --version 7.8.4.1
+    iex (new-object net.webclient).downloadstring('https://get.scoop.sh')
     cd $env:APPVEYOR_BUILD_FOLDER
 - netsh winsock reset
 - refreshenv
-- cabal update
-- cabal install ShellCheck
+- scoop install shellcheck
 - ps: Restart-Computer -Force
 - vagrant -v
 - VBoxManage -v
