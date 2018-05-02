@@ -24,9 +24,9 @@ install:
     choco install ghc -y
     cd $env:APPVEYOR_BUILD_FOLDER
 - netsh winsock reset
+- refreshenv
 - cabal update
 - cabal install ShellCheck
-- refreshenv
 - ps: Restart-Computer -Force
 - vagrant -v
 - VBoxManage -v
