@@ -16,6 +16,7 @@ init:
         echo "waiting for network..."
         Start-Sleep 1
     }
+- ps: iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
 
 install:
 - ps: |
@@ -37,6 +38,8 @@ install:
 build_script:
 - ps: Test-NetConnection google.com -Port 80
 test_script:
-- shellcheck (Get-ChildItem -Path *.sh)
-- shellcheck (Get-ChildItem -Path .\tests\*.sh)
+- ps: shellcheck (Get-ChildItem -Path *.sh)
+- ps: shellcheck (Get-ChildItem -Path .\tests\*.sh)
 - ps: sh tests/tests.sh
+on_finish:
+- ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
