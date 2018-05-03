@@ -113,7 +113,13 @@ function testTimezone() {
 
 function testNTP() {
     configureNTP
-    assertContains "NTP synchronized: yes" "$(timedatectl status)"
+    ubuntu_version="$(lsb_release -sr)"
+
+    if [[ $ubuntu_version == '18.04' ]]; then
+        assertContains "System clock synchronized: yes" "$(timedatectl status)"
+    else
+        assertContains "NTP synchronized: yes" "$(timedatectl status)"
+    fi
 }
 
 function testTeardown () {
