@@ -146,6 +146,13 @@ function revertSudoers() {
     sudo rm -rf /etc/sudoers.bak
 }
 
+# Install prerequisite dependencies
+# reference: https://linuxconfig.org/how-to-install-docker-on-ubuntu-18-04-bionic-beaver
+function installPrerequisite() {
+    sudo apt update
+    sudo apt install apt-transport-https ca-certificates curl software-properties-common
+}
+
 # Install docker
 # from: https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-16-04
 function installDocker() {
