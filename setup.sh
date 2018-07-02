@@ -46,6 +46,11 @@ function main() {
     echo "Installing Network Time Protocol... " >&3
     configureNTP
 
+    echo "Installing Docker and Docker Compose ... " >&3
+    installDocker
+    installDockerCompose
+    installComposeCommandCompletion
+
     sudo service ssh restart
 
     cleanup
