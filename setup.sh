@@ -51,6 +51,9 @@ function main() {
     installDockerCompose
     installComposeCommandCompletion
 
+    echo "Installing lnav ... " >&3
+    installLnav
+
     sudo service ssh restart
 
     cleanup
