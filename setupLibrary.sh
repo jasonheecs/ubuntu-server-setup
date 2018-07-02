@@ -174,3 +174,9 @@ function installDockerCompose() {
 function installComposeCommandCompletion() {
     sudo curl -L https://raw.githubusercontent.com/docker/compose/1.21.2/contrib/completion/bash/docker-compose -o /etc/bash_completion.d/docker-compose
 }
+
+# Install lnav - http://lnav.org/
+function installLnav() {
+    sudo curl -L https://github.com/tstack/lnav/releases/download/v0.8.3/lnav_0.8.3_amd64.deb -o lnav-latest.deb
+    sudo dpkg -i lnav-latest.deb
+}
