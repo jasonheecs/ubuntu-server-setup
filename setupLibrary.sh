@@ -177,6 +177,6 @@ function installComposeCommandCompletion() {
 
 # Install lnav - http://lnav.org/
 function installLnav() {
-    sudo curl -L https://github.com/tstack/lnav/releases/download/v0.8.3/lnav_0.8.3_amd64.deb -o lnav-latest.deb
+    curl -L https://github.com/tstack/lnav/releases/download/v0.8.3/lnav_0.8.3_amd64.deb -o lnav-latest.deb
     sudo dpkg -i lnav-latest.deb
 }
