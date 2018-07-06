@@ -188,5 +188,5 @@ function installMosh() {
     sudo apt-get install -y mosh
     sudo cp mosh-allow-ufw.sh /usr/local/bin/mosh-allow-ufw.sh
     sudo chmod +x /usr/local/bin/mosh-allow-ufw.sh
-    sed '$ a sudo /usr/local/bin/mosh-allow-ufw.sh' ~/.bashrc
+    sed -i '$ a sudo /usr/local/bin/mosh-allow-ufw.sh' ~/.bashrc
 }
