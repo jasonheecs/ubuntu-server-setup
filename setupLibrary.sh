@@ -180,3 +180,13 @@ function installLnav() {
     curl -L https://github.com/tstack/lnav/releases/download/v0.8.3/lnav_0.8.3_amd64.deb -o lnav-latest.deb
     sudo dpkg -i lnav-latest.deb
 }
+
+# Install mosh
+# Incorporate idea from: https://stephen.rees-carter.net/thought/mosh-and-ufw-without-1000-open-ports
+# to auto open/close mosh port
+function installMosh() {
+    sudo apt-get install -y mosh
+    sudo cp mosh-allow-ufw.sh /usr/local/bin/mosh-allow-ufw.sh
+    sudo chmod +x /usr/local/bin/mosh-allow-ufw.sh
+    sed '$ a sudo /usr/local/bin/mosh-allow-ufw' ~/.bashrc
+}
