@@ -186,7 +186,10 @@ function installLnav() {
 # to auto open/close mosh port
 function installMosh() {
     sudo apt-get install -y mosh
-    sudo cp mosh-allow-ufw.sh /usr/local/bin/mosh-allow-ufw.sh
-    sudo chmod +x /usr/local/bin/mosh-allow-ufw.sh
-    sed -i '$ a sudo /usr/local/bin/mosh-allow-ufw.sh' ~/.bashrc
+    sudo ufw allow mosh
+    
+    # this doesn't seem to work - mosh can't connect - need to check again
+    #sudo cp mosh-allow-ufw.sh /usr/local/bin/mosh-allow-ufw.sh
+    #sudo chmod +x /usr/local/bin/mosh-allow-ufw.sh
+    #sed -i '$ a sudo /usr/local/bin/mosh-allow-ufw.sh' ~/.bashrc
 }
