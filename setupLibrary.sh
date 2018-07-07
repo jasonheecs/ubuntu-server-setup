@@ -193,3 +193,12 @@ function installMosh() {
     #sudo chmod +x /usr/local/bin/mosh-allow-ufw.sh
     #sed -i '$ a sudo /usr/local/bin/mosh-allow-ufw.sh' ~/.bashrc
 }
+
+# Update packages
+function updatePackages() {
+    sudo apt update
+    sudo apt upgrade
+    sudo apt-get update
+    sudo apt-get upgrade
+}
+
