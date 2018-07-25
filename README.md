@@ -10,6 +10,8 @@ This is a setup script to automate the setup and provisioning of Ubuntu servers.
 * Create Swap file based on machine's installed memory
 * Setup the timezone for the server (Default to "Asia/Singapore")
 * Install Network Time Protocol
+* Install docker, docker-compose and docker-compose command completion
+* Install lnav (log navigator) and mosh (mobile shell)
 
 # Installation
 SSH into your server and install git if it is not installed:

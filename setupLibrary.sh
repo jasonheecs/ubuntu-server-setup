@@ -145,3 +145,57 @@ function revertSudoers() {
     sudo cp /etc/sudoers.bak /etc/sudoers
     sudo rm -rf /etc/sudoers.bak
 }
+
+# Install prerequisite dependencies
+# reference: https://linuxconfig.org/how-to-install-docker-on-ubuntu-18-04-bionic-beaver
+function installPrerequisite() {
+    sudo apt update
+    sudo apt install apt-transport-https ca-certificates curl software-properties-common
+}
+
+# Install docker
+# from: https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-16-04
+function installDocker() {
+    curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+    sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+    sudo apt-get update
+    sudo apt-get install -y docker-ce
+}
+
+# Install docker compose and docker compose command completion
+# reference: https://docs.docker.com/compose/install/
+#            https://docs.docker.com/compose/completion/
+#            https://gist.github.com/wdullaer/f1af16bd7e970389bad3
+function installDockerCompose() {
+    COMPOSE_VERSION=$(git ls-remote https://github.com/docker/compose | grep refs/tags | grep -oP "[0-9]+\.[0-9][0-9]+\.[0-9]+$" | tail -n 1)
+    sudo curl -L "https://github.com/docker/compose/releases/download/$COMPOSE_VERSION/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+    sudo chmod +x /usr/local/bin/docker-compose
+    sudo curl -L "https://raw.githubusercontent.com/docker/compose/$COMPOSE_VERSION/contrib/completion/bash/docker-compose" -o /etc/bash_completion.d/docker-compose
+}
+
+# Install lnav - http://lnav.org/
+function installLnav() {
+    curl -L https://github.com/tstack/lnav/releases/download/v0.8.3/lnav_0.8.3_amd64.deb -o lnav-latest.deb
+    sudo dpkg -i lnav-latest.deb
+}
+
+# Install mosh
+# Incorporate idea from: https://stephen.rees-carter.net/thought/mosh-and-ufw-without-1000-open-ports
+# to auto open/close mosh port
+function installMosh() {
+    sudo apt-get install -y mosh
+    sudo ufw allow mosh
+    
+    # this doesn't seem to work - mosh can't connect - need to check again
+    #sudo cp mosh-allow-ufw.sh /usr/local/bin/mosh-allow-ufw.sh
+    #sudo chmod +x /usr/local/bin/mosh-allow-ufw.sh
+    #sed -i '$ a sudo /usr/local/bin/mosh-allow-ufw.sh' ~/.bashrc
+}
+
+# Update packages
+function updatePackages() {
+    sudo apt-get update
+    sudo apt-get upgrade -y
+    sudo apt autoremove -y
+}
+
