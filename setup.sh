@@ -49,7 +49,6 @@ function main() {
     echo "Installing Docker and Docker Compose ... " >&3
     installDocker
     installDockerCompose
-    installComposeCommandCompletion
 
     echo "Installing lnav and mosh ... " >&3
     installLnav
