@@ -162,19 +162,15 @@ function installDocker() {
     sudo apt-get install -y docker-ce
 }
 
-# Install docker compose
+# Install docker compose and docker compose command completion
 # reference: https://docs.docker.com/compose/install/
+#            https://docs.docker.com/compose/completion/
 #            https://gist.github.com/wdullaer/f1af16bd7e970389bad3
 function installDockerCompose() {
     COMPOSE_VERSION=`git ls-remote https://github.com/docker/compose | grep refs/tags | grep -oP "[0-9]+\.[0-9][0-9]+\.[0-9]+$" | tail -n 1`
     sudo curl -L https://github.com/docker/compose/releases/download/$COMPOSE_VERSION/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose
     sudo chmod +x /usr/local/bin/docker-compose
-}
-
-# Install docker compose command completion
-# reference: https://docs.docker.com/compose/completion/
-function installComposeCommandCompletion() {
-    sudo curl -L https://raw.githubusercontent.com/docker/compose/1.21.2/contrib/completion/bash/docker-compose -o /etc/bash_completion.d/docker-compose
+    sudo curl -L https://raw.githubusercontent.com/docker/compose/$COMPOSE_VERSION/contrib/completion/bash/docker-compose -o /etc/bash_completion.d/docker-compose
 }
 
 # Install lnav - http://lnav.org/
