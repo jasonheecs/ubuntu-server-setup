@@ -114,8 +114,14 @@ function setTimezone() {
 
 # Configure Network Time Protocol
 function configureNTP() {
-    sudo apt-get update
-    sudo apt-get --assume-yes install ntp
+    ubuntu_version="$(lsb_release -sr)"
+
+    if [[ $ubuntu_version == '20.04' ]]; then
+        sudo systemctl restart systemd-timesyncd
+    else
+        sudo apt-get update
+        sudo apt-get --assume-yes install ntp
+    fi
 }
 
 # Gets the amount of physical memory in GB (rounded up) installed on the machine
