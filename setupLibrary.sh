@@ -121,6 +121,11 @@ function configureNTP() {
     else
         sudo apt-get update
         sudo apt-get --assume-yes install ntp
+        
+        # force NTP to sync
+        sudo service ntp stop
+        sudo ntpd -gq
+        sudo service ntp start
     fi
 }
 
