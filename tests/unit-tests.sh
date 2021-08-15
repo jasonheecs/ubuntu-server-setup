@@ -2,9 +2,11 @@
 
 set -e
 
-while getopts "skip" opt; do
+while getopts "s" opt; do
     case $opt in
     s) SKIP_SETUP=true ;;
+    *) echo "usage: $0 [-v] [-r]" >&2
+       exit 1 ;;
     esac
 done
 

@@ -2,7 +2,7 @@ language: generic
 sudo: required
 matrix:
   include:
-    - dist: trusty
+    - dist: xenial
       sudo: required
 # Use https (public access) instead of git for git-submodules. This modifies only Travis-CI behavior
 git:
@@ -13,4 +13,4 @@ before_install:
   - git submodule update --init --recursive
 script:
   - bash -c 'shopt -s globstar; shellcheck ./*.sh; shellcheck ./tests/*.sh'
-  - bash tests/unit-tests.sh -skip
+  - bash tests/unit-tests.sh -s
