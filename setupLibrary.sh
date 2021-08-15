@@ -3,12 +3,10 @@
 # Add the new user account
 # Arguments:
 #   Account Username
-#   Account Password
 #   Flag to determine if user account is added silently. (With / Without GECOS prompt)
 function addUserAccount() {
     local username=${1}
-    local password=${2}
-    local silent_mode=${3}
+    local silent_mode=${2}
 
     if [[ ${silent_mode} == "true" ]]; then
         sudo adduser --disabled-password --gecos '' "${username}"
@@ -16,8 +14,8 @@ function addUserAccount() {
         sudo adduser --disabled-password "${username}"
     fi
 
-    echo "${username}:${password}" | sudo chpasswd
     sudo usermod -aG sudo "${username}"
+    sudo passwd -d "${username}"
 }
 
 # Add the local machine public SSH Key for the new user account

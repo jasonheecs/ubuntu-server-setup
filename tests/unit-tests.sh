@@ -23,7 +23,6 @@ source "${current_dir}/lib/bunit.shl"
 source "${current_dir}/../setupLibrary.sh"
 
 test_user_account=testuser
-test_account_password="123%pass_321"
 
 # shellcheck disable=SC2034
 VERBOSE_MODE="true"
@@ -32,7 +31,7 @@ VERBOSE_MODE="true"
 
 function testSetup () {
     echo "Test Setup"
-    addUserAccount ${test_user_account} ${test_account_password} true
+    addUserAccount ${test_user_account} true
 }
 
 function testUserAccountCreated() {

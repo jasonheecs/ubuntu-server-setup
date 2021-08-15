@@ -20,12 +20,10 @@ output_file="output.log"
 function main() {
     read -rp "Enter the username of the new user account:" username
 
-    promptForPassword
-
     # Run setup functions
     trap cleanup EXIT SIGHUP SIGINT SIGTERM
 
-    addUserAccount "${username}" "${password}"
+    addUserAccount "${username}"
 
     read -rp $'Paste in the public SSH key for the new user:\n' sshKey
     echo 'Running setup script...'
@@ -87,23 +85,6 @@ function setupTimezone() {
     fi
     setTimezone "${timezone}"
     echo "Timezone is set to $(cat /etc/timezone)" >&3
-}
-
-# Keep prompting for the password and password confirmation
-function promptForPassword() {
-   PASSWORDS_MATCH=0
-   while [ "${PASSWORDS_MATCH}" -eq "0" ]; do
-       read -s -rp "Enter new UNIX password:" password
-       printf "\n"
-       read -s -rp "Retype new UNIX password:" password_confirmation
-       printf "\n"
-
-       if [[ "${password}" != "${password_confirmation}" ]]; then
-           echo "Passwords do not match! Please try again."
-       else
-           PASSWORDS_MATCH=1
-       fi
-   done 
 }
 
 main

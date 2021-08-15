@@ -31,7 +31,7 @@ bash setup.sh
 ```
 
 # Setup prompts
-When the setup script is run, you will be prompted to enter the username and password of the new user account. 
+When the setup script is run, you will be prompted to enter the username of the new user account. 
 
 Following that, you will then be prompted to add a public ssh key (which should be from your local machine) for the new account. To generate an ssh key from your local machine:
 ```bash
