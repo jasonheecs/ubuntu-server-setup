@@ -13,4 +13,4 @@ before_install:
   - git submodule update --init --recursive
 script:
   - bash -c 'shopt -s globstar; shellcheck ./*.sh; shellcheck ./tests/*.sh'
-  - bash tests/unit-tests.sh -skip
+  - bash tests/unit-tests.sh -s
