@@ -51,6 +51,7 @@ function changeSSHConfig() {
 
 # Setup the Uncomplicated Firewall
 function setupUfw() {
+    sudo apt-get install ufw
     sudo ufw allow OpenSSH
     yes y | sudo ufw enable
 }
