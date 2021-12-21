@@ -18,12 +18,21 @@ includeDependencies
 output_file="output.log"
 
 function main() {
-    read -rp "Enter the username of the new user account:" username
+    read -rp "Do you want to (c)reate or (u)pdate an account?" type
 
     # Run setup functions
     trap cleanup EXIT SIGHUP SIGINT SIGTERM
 
-    addUserAccount "${username}"
+    read -rp "Enter the username of the (new) user account:" username
+
+    if [[ $type == [uU] ]]; then
+	updateUserAccount "${username}"
+    elif [[ $type == [cC] ]]; then
+        addUserAccount "${username}"
+    else
+	echo 'This is not a valid choiche!'
+	exit 1
+    fi
 
     read -rp $'Paste in the public SSH key for the new user:\n' sshKey
     echo 'Running setup script...'
@@ -78,10 +87,10 @@ function logTimestamp() {
 }
 
 function setupTimezone() {
-    echo -ne "Enter the timezone for the server (Default is 'Asia/Singapore'):\n" >&3
+    echo -ne "Enter the timezone for the server (Default is 'Europe/Rome'):\n" >&3
     read -r timezone
     if [ -z "${timezone}" ]; then
-        timezone="Asia/Singapore"
+        timezone="Europe/Rome"
     fi
     setTimezone "${timezone}"
     echo "Timezone is set to $(cat /etc/timezone)" >&3
