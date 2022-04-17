@@ -24,7 +24,8 @@ function main() {
     trap cleanup EXIT SIGHUP SIGINT SIGTERM
 
     if [[ $createUser == [nN] ]]; then
-        updateUserAccount "$(whoami)"
+        username=$(whoami)
+        updateUserAccount "${username}"
     elif [[ $createUser == [yY] ]]; then
         read -rp "Enter the username of the new user account: " username
         addUserAccount "${username}"
@@ -38,6 +39,8 @@ function main() {
     logTimestamp "${output_file}"
 
     exec 3>&1 >>"${output_file}" 2>&1
+
+
     disableSudoPassword "${username}"
     addSSHKey "${username}" "${sshKey}"
     changeSSHConfig

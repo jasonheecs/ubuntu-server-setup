@@ -8,7 +8,6 @@ function updateUserAccount() {
     
     sudo passwd -d "${username}"
     sudo usermod -aG sudo "${username}"
-    sudo passwd -d "${username}"
 }
 
 # Add the new user account
