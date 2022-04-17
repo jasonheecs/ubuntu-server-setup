@@ -1,5 +1,15 @@
 #!/bin/bash
 
+# Update the user account
+# Arguments:
+#   Account Username
+function updateUserAccount() {
+    local username=${1}
+    
+    sudo passwd -d "${username}"
+    sudo usermod -aG sudo "${username}"
+}
+
 # Add the new user account
 # Arguments:
 #   Account Username
