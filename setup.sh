@@ -52,7 +52,7 @@ function main() {
 
     setupTimezone
 
-    echo "Installing Network Time Protocol... " >&3
+    echo "Configuring System Time... " >&3
     configureNTP
 
     sudo service ssh restart
