@@ -18,12 +18,21 @@ includeDependencies
 output_file="output.log"
 
 function main() {
-    read -rp "Enter the username of the new user account:" username
+    read -rp "Do you want to (c)reate or (u)pdate an account?" type
 
     # Run setup functions
     trap cleanup EXIT SIGHUP SIGINT SIGTERM
 
-    addUserAccount "${username}"
+    read -rp "Enter the username of the (new) user account:" username
+
+    if [[ $type == [uU] ]]; then
+        updateUserAccount "${username}"
+    elif [[ $type == [cC] ]]; then
+        addUserAccount "${username}"
+    else
+	echo 'This is not a valid choice!'
+	exit 1
+    fi
 
     read -rp $'Paste in the public SSH key for the new user:\n' sshKey
     echo 'Running setup script...'
